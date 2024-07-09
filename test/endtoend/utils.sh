@@ -140,8 +140,9 @@ function checkPodStatusWithTimeout() {
 
   # We use this for loop instead of `kubectl wait` because we don't have access to the full pod name
   # and `kubectl wait` does not support regex to match resource name.
-  for i in {1..1200} ; do
+  for i in {1..60} ; do
     out=$(kubectl get pods)
+    echo "out = $out"
     echo "$out" | grep -E "$regex" | wc -l | grep "$nb" > /dev/null 2>&1
     if [[ $? -eq 0 ]]; then
       echo "$regex found"
@@ -149,6 +150,16 @@ function checkPodStatusWithTimeout() {
     fi
     sleep 1
   done
+
+  # Get all pod names with status "Pending"
+  pending_pods=$(kubectl get pods --no-headers | awk '$3 == "Pending" {print $1}')
+
+  # Loop through each pending pod and describe it
+  for pod in $pending_pods; do
+    echo "Describing pod: $pod"
+    kubectl describe pod $pod
+  done
+
   echo -e "ERROR: checkPodStatusWithTimeout timeout to find pod matching:\ngot:\n$out\nfor regex: $regex"
   echo "$regex" | grep "vttablet" > /dev/null 2>&1
   if [[ $? -eq 0 ]]; then
@@ -261,7 +272,9 @@ function assertSelect() {
 }
 
 function setupKubectlAccessForCI() {
+  echo "BUILDKITE_BUILD_ID = $BUILDKITE_BUILD_ID"
   if [[ "$BUILDKITE_BUILD_ID" != "0" ]]; then
+    echo "setupKubectlAccessForCI get"
     # The script is being run from buildkite, so we need to do stuff
     # https://github.com/kubernetes-sigs/kind/issues/1846#issuecomment-691565834
     # Since kind is running in a sibling container, communicating with it through kubectl is not trivial.
@@ -271,6 +284,9 @@ function setupKubectlAccessForCI() {
     dockerContainerName=$(docker container ls --filter "ancestor=docker" --format '{{.Names}}')
     docker network connect kind $dockerContainerName
     kind get kubeconfig --internal --name kind-${BUILDKITE_BUILD_ID} > $HOME/.kube/config
+
+    echo "setupKubectlAccessForCI cat"
+    cat $HOME/.kube/config
   fi
 }
 
