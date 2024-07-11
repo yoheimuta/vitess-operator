@@ -140,7 +140,7 @@ function checkPodStatusWithTimeout() {
 
   # We use this for loop instead of `kubectl wait` because we don't have access to the full pod name
   # and `kubectl wait` does not support regex to match resource name.
-  for i in {1..60} ; do
+  for i in {1..300} ; do
     out=$(kubectl get pods)
     echo "out = $out"
     echo "$out" | grep -E "$regex" | wc -l | grep "$nb" > /dev/null 2>&1
@@ -156,6 +156,24 @@ function checkPodStatusWithTimeout() {
 
   # Loop through each pending pod and describe it
   for pod in $pending_pods; do
+    echo "Describing pod: $pod"
+    kubectl describe pod $pod
+  done
+
+  # Get all pod names with status "Error"
+  error_pods=$(kubectl get pods --no-headers | awk '$3 == "Error" {print $1}')
+
+  # Loop through each error pod and describe it
+  for pod in $error_pods; do
+    echo "Describing pod: $pod"
+    kubectl describe pod $pod
+  done
+
+  # Get all pod names with status "CrashLoopBackOff"
+  crash_pods=$(kubectl get pods --no-headers | awk '$3 == "CrashLoopBackOff" {print $1}')
+
+  # Loop through each crash pod and describe it
+  for pod in $crash_pods; do
     echo "Describing pod: $pod"
     kubectl describe pod $pod
   done
