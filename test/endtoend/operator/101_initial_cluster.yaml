@@ -67,7 +67,7 @@ spec:
           tabletPools:
           - cell: zone1
             type: replica
-            replicas: 2
+            replicas: 3
             vttablet:
               extraFlags:
                 db_charset: utf8mb4
