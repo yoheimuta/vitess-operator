@@ -27,7 +27,7 @@ spec:
       replicas: 1
       resources:
         requests:
-          cpu: 100m
+          cpu: 10m
           memory: 256Mi
         limits:
           memory: 256Mi
@@ -41,7 +41,7 @@ spec:
       limits:
         memory: 128Mi
       requests:
-        cpu: 100m
+        cpu: 10m
         memory: 128Mi
 
   keyspaces:
@@ -53,7 +53,7 @@ spec:
         limits:
           memory: 128Mi
         requests:
-          cpu: 100m
+          cpu: 10m
           memory: 128Mi
       extraFlags:
         recovery-period-block-duration: 5s
@@ -67,7 +67,7 @@ spec:
           tabletPools:
           - cell: zone1
             type: replica
-            replicas: 3
+            replicas: 2
             vttablet:
               extraFlags:
                 db_charset: utf8mb4
@@ -75,14 +75,14 @@ spec:
                 limits:
                   memory: 256Mi
                 requests:
-                  cpu: 100m
+                  cpu: 50m
                   memory: 256Mi
             mysqld:
               resources:
                 limits:
                   memory: 1024Mi
                 requests:
-                  cpu: 100m
+                  cpu: 50m
                   memory: 512Mi
             dataVolumeClaimTemplate:
               accessModes: ["ReadWriteOnce"]

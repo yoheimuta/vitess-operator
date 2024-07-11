@@ -14,7 +14,7 @@ function get_started_vtorc_vtadmin() {
     checkPodStatusWithTimeout "example-zone1-vtctld(.*)1/1(.*)Running(.*)"
     checkPodStatusWithTimeout "example-zone1-vtgate(.*)1/1(.*)Running(.*)"
     checkPodStatusWithTimeout "example-etcd(.*)1/1(.*)Running(.*)" 3
-    checkPodStatusWithTimeout "example-vttablet-zone1(.*)3/3(.*)Running(.*)" 3
+    checkPodStatusWithTimeout "example-vttablet-zone1(.*)3/3(.*)Running(.*)" 2
     checkPodStatusWithTimeout "example-zone1-vtadmin(.*)2/2(.*)Running(.*)"
     checkPodStatusWithTimeout "example-commerce-x-x-zone1-vtorc(.*)1/1(.*)Running(.*)"
 

@@ -28,7 +28,7 @@ spec:
       replicas: 1
       resources:
         requests:
-          cpu: 100m
+          cpu: 10m
           memory: 256Mi
         limits:
           memory: 256Mi
@@ -42,7 +42,7 @@ spec:
       limits:
         memory: 128Mi
       requests:
-        cpu: 100m
+        cpu: 10m
         memory: 128Mi
   vtadmin:
     rbac:
@@ -58,13 +58,13 @@ spec:
       limits:
         memory: 128Mi
       requests:
-        cpu: 100m
+        cpu: 10m
         memory: 128Mi
     webResources:
       limits:
         memory: 128Mi
       requests:
-        cpu: 100m
+        cpu: 10m
         memory: 128Mi
 
   keyspaces:
@@ -81,7 +81,7 @@ spec:
           tabletPools:
           - cell: zone1
             type: replica
-            replicas: 3
+            replicas: 2
             vttablet:
               extraFlags:
                 disable_active_reparents: "true"
@@ -90,14 +90,14 @@ spec:
                 limits:
                   memory: 256Mi
                 requests:
-                  cpu: 100m
+                  cpu: 10m
                   memory: 256Mi
             mysqld:
               resources:
                 limits:
                   memory: 1024Mi
                 requests:
-                  cpu: 100m
+                  cpu: 10m
                   memory: 512Mi
             dataVolumeClaimTemplate:
               accessModes: ["ReadWriteOnce"]
