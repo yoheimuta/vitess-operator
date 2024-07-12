@@ -140,7 +140,7 @@ function checkPodStatusWithTimeout() {
 
   # We use this for loop instead of `kubectl wait` because we don't have access to the full pod name
   # and `kubectl wait` does not support regex to match resource name.
-  for i in {1..300} ; do
+  for i in {1..180} ; do
     out=$(kubectl get pods)
     echo "out = $out"
     echo "$out" | grep -E "$regex" | wc -l | grep "$nb" > /dev/null 2>&1
