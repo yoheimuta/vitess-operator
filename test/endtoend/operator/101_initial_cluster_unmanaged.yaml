@@ -28,8 +28,8 @@ spec:
       replicas: 1
       resources:
         requests:
-          cpu: 100m
-          memory: 256Mi
+          cpu: 10m
+          memory: 128Mi
         limits:
           memory: 256Mi
   vitessDashboard:
@@ -42,8 +42,8 @@ spec:
       limits:
         memory: 128Mi
       requests:
-        cpu: 100m
-        memory: 128Mi
+        cpu: 10m
+        memory: 64Mi
 
   keyspaces:
   - name: commerce
@@ -54,8 +54,8 @@ spec:
         limits:
           memory: 128Mi
         requests:
-          cpu: 100m
-          memory: 128Mi
+          cpu: 10m
+          memory: 64Mi
       extraFlags:
         recovery-period-block-duration: 5s
     partitionings:
@@ -76,8 +76,8 @@ spec:
                 limits:
                   memory: 256Mi
                 requests:
-                  cpu: 100m
-                  memory: 256Mi
+                  cpu: 10m
+                  memory: 128Mi
             externalDatastore:
               user: root
               host: mysql
@@ -213,7 +213,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: 500Mi
 ---
 apiVersion: v1
 kind: Service
