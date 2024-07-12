@@ -254,7 +254,7 @@ function waitForKeyspaceToBeServing() {
       echo "Shard $ks/$shard is serving"
       return
     fi
-    echo "Shard $ks/$shard is not fully serving. Output: $out"
+    echo "Shard $ks/$shard is not fully serving. Output: $out, numtablets: $numtablets"
     echo "Retrying (attempt #$i) ..."
     sleep 10
   done

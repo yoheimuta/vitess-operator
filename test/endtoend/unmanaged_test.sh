@@ -28,7 +28,7 @@ function get_started_unmanaged() {
     ./pf_vtadmin.sh > /dev/null 2>&1 &
     sleep 5
 
-    waitForKeyspaceToBeServing commerce - 2
+    waitForKeyspaceToBeServing commerce - 0
     sleep 5
 
     applySchemaWithRetry create_commerce_schema.sql commerce drop_all_commerce_tables.sql
